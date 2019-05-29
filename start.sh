@@ -1,6 +1,5 @@
 export SECRET_KEY='Rayb'
+export MAIL_USERNAME='jacqulinewangu@gmail.com'
+export MAIL_PASSWORD='0704588886'
 
-export MAIL_USERNAME='jacquline'
-export MAIL_PASSWORD='jaki'
-
-python manage.py runserver
+python3.6 manage.py server

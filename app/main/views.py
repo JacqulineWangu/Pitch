@@ -70,7 +70,7 @@ def pitches_list():
     all_pitches = Pitch.get_all_pitches()
 
     title = 'Pitches Page'    
-    return render_template('pitches.html', title = title, pitch_form = pitch_form, pitches = all_pitches)
+    return render_template('posts.html', title = title, pitch_form = pitch_form, pitches = all_pitches)
 
 @main.route('/comments/<int:id>',methods = ['GET','POST'])
 @login_required
