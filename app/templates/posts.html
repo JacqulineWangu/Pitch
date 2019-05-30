@@ -3,18 +3,29 @@
 {% import 'macros.html' as macro%}
 
 {% block content %}
-<div class="container">
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-            <div class="row">
-                <div class="col-md-12">
-                    {{wtf.quick_form(pitch_form)}}
+<style>
+
+body{
+
+    background-image: url("../static/img/5-8.jpg" );
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+</style>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-12">
+                        {{wtf.quick_form(pitch_form)}}
+                    </div>
+                    {{macro.displayPitches(pitches)}}
                 </div>
-                {{macro.displayPitches(pitches)}}
             </div>
+            <div class="col-md-2"></div>
         </div>
-        <div class="col-md-2"></div>
     </div>
-</div>
+</body>
 {% endblock %}
