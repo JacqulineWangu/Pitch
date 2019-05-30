@@ -22,6 +22,9 @@ class User(UserMixin,db.Model):
 
     pitches = db.relationship('Pitch',backref='user',lazy='dynamic')
     comments = db.relationship('Comment',backref='user',lazy='dynamic')
+    liked = db.relationship('PostLike',foreign_keys='PostLike.user_id',backref='user', lazy='dynamic')
+
+
     @property
     def password(self):
         raise AttributeError('You cannot read the password attritube')
@@ -35,6 +38,30 @@ class User(UserMixin,db.Model):
 
     def __repr__(self):
         return f'User {self.username}'
+
+    def like_post(self, post):
+        if not self.has_liked_post(post):
+            like = PostLike(user_id=self.id, post_id=post.id)
+            db.session.add(like)
+
+    def unlike_post(self, post):
+        if self.has_liked_post(post):
+            PostLike.query.filter_by(
+                user_id=self.id,
+                post_id=post.id).delete()
+
+    def has_liked_post(self, post):
+        return PostLike.query.filter(
+            PostLike.user_id == self.id,
+            PostLike.post_id == post.id).count() > 0
+
+
+class PostLike(db.Model):
+    __tablename__ = 'post_like'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
+
 
 class Pitch(db.Model):
     __tablename__ = 'pitches'
@@ -78,3 +105,34 @@ class Comment(db.Model):
     def get_comments(cls,id):
         comments = Comment.query.filter_by(pitch_id=id).all()
         return comments
+
+
+
+
+
+
+#         class User(UserMixin, db.Model):
+#     # Code
+    
+#     def like_post(self, post):
+#         if not self.has_liked_post(post):
+#             like = PostLike(user_id=self.id, post_id=post.id)
+#             db.session.add(like)
+
+#     def unlike_post(self, post):
+#         if self.has_liked_post(post):
+#             PostLike.query.filter_by(
+#                 user_id=self.id,
+#                 post_id=post.id).delete()
+
+#     def has_liked_post(self, post):
+#         return PostLike.query.filter(
+#             PostLike.user_id == self.id,
+#             PostLike.post_id == post.id).count() > 0
+
+
+# class PostLike(db.Model):
+#     __tablename__ = 'post_like'
+#     id = db.Column(db.Integer, primary_key=True)
+#     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+#     post_id = db.Column(db.Integer, db.ForeignKey('post.id'))

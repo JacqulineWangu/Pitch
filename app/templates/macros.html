@@ -1,6 +1,6 @@
 {% macro displayPitches(pitches) %}
 {% for pitch in pitches %}
-<div class="col-md-12 pitch_list">
+<div class="col-6 pitch_list">
     {% if pitch.user.profile_pic_path %}
     <p>
         <img src="{{url_for('static',filename = pitch.user.profile_pic_path)}}" alt="" class="img-thumbnail">
@@ -15,6 +15,7 @@
     <h5>{{pitch.pitch_content}}</h5>
     <h5><strong>Category: </strong>{{pitch.pitch_category}}</h5>
     <p class="btn btn-success comment"><a href="/comments/{{pitch.id}}">Comments</a></p>
+    
 </div>
 {% endfor %}
 {% endmacro %}
