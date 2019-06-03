@@ -12,6 +12,7 @@
 
 <div class="container-fluid">
     <div class="row">
+        <div class="col-md-1"></div>
         <div class="col-md-5 profile_pic">
             <!-- Prof Pic -->
             {% if user.profile_pic_path %}
@@ -29,7 +30,8 @@
             </form>
             {% endif %}
         </div>
-        <div class="col-md-7">
+        <div class="col-md-1"></div>
+        <div class="col-md-5">
             <h4>Bio Information</h4>
             {% if user.bio %}
             <p> {{user.bio}} </p>
